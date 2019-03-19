@@ -2,7 +2,7 @@ function [ reachable ] = APFSearch( start, goal, map )
 
 %% params
 obs_thresh = 2;
-mul_R = 10000;
+mul_R = 50;
 
 %% attractive and repulsive potentials
 G = zeros(size(map));

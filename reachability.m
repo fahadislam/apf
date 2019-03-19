@@ -63,19 +63,21 @@ end
 
 %% Plotting
 % Reachable
-scatter(Reachable(:,1), Reachable(:,2), 'r');
+scatter(Reachable(:,2), Reachable(:,1), 'r');
 axis(limits);
 hold on;
 
 %attractor
-scatter(attractor(1), attractor(2), 'b', 'filled');
+scatter(attractor(2), attractor(1), 'b', 'filled');
 hold on
 
 %first unreachable
-scatter(state(1), state(2), 'm', 'filled');
-hold on
+if (~isempty(Open))
+    scatter(state(2), state(1), 'm', 'filled');
+    hold on
+end
 
 % obstacles
-scatter(obs_X, obs_Y, 'k', 'filled');
+scatter(obs_Y, obs_X, 'k', 'filled');
 
 close all
