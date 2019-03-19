@@ -1,24 +1,35 @@
 % M = imcomplement(im2bw(rgb2gray(imread('map.png'))));
 
-APF = true;
-% APF = false;
+% APF = true;
+APF = false;
 
-M = [0 0 0 0 0 0 0 0 0 0
-    0 0 0 0 0 0 0 0 0 0
-    0 0 0 0 0 0 0 0 0 0
-    0 0 0 0 1 1 0 0 0 0
-    0 0 0 1 1 1 1 0 0 0
-    0 0 0 1 1 1 1 0 0 0
-    0 0 0 0 1 1 0 0 0 0
-    0 0 0 0 0 0 0 0 0 0
-    0 0 0 0 0 0 0 0 0 0
-    0 0 0 0 0 0 0 0 0 0];
+%% set up world
+obs = [6, 6, 2]; % row, col, rad
+M = zeros(11);
+for i = 1 : size(M,1)
+    for j = 1 : size(M,2)
+        if (pdist([obs(1:2); i j],'euclidean') < obs(3))
+            M(i, j) = 1;
+        end
+    end
+end
+attractor = [6, 11];
+
+%%
+
+% M = [0 0 0 0 0 0 0 0 0 0
+%     0 0 0 0 0 0 0 0 0 0
+%     0 0 0 0 0 0 0 0 0 0
+%     0 0 0 0 1 1 0 0 0 0
+%     0 0 0 1 1 1 1 0 0 0
+%     0 0 0 1 1 1 1 0 0 0
+%     0 0 0 0 1 1 0 0 0 0
+%     0 0 0 0 0 0 0 0 0 0
+%     0 0 0 0 0 0 0 0 0 0
+%     0 0 0 0 0 0 0 0 0 0];
 
 [obs_X, obs_Y] = ind2sub(size(M), find(M));
-
 limits = [1 size(M, 2) 1 size(M, 1)]; %[x1 x2 y1 y2]
-
-attractor = [5, 10];
 Reachable = [];
 States = containers.Map();
 Open = containers.Map();
